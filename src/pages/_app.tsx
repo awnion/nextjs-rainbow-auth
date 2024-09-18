@@ -14,26 +14,28 @@ import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next
 const client = new QueryClient();
 
 function MyApp({
-	Component,
-	pageProps,
+  Component,
+  pageProps,
 }: AppProps<{
-	session: Session;
+  session: Session;
 }>) {
-	return (
-		<WagmiProvider config={config}>
-			<SessionProvider refetchInterval={0} session={pageProps.session}>
-				<QueryClientProvider client={client}>
-					<RainbowKitSiweNextAuthProvider getSiweMessageOptions={() => ({
-            statement: "Sign in with Ethereum",
-          })}>
-						<RainbowKitProvider>
-							<Component {...pageProps} />
-						</RainbowKitProvider>
-					</RainbowKitSiweNextAuthProvider>
-				</QueryClientProvider>
-			</SessionProvider>
-		</WagmiProvider>
-	);
+  return (
+    <WagmiProvider config={config}>
+      <SessionProvider refetchInterval={0} session={pageProps.session}>
+        <QueryClientProvider client={client}>
+          <RainbowKitSiweNextAuthProvider
+            getSiweMessageOptions={() => ({
+              statement: "Sign in with Ethereum",
+            })}
+          >
+            <RainbowKitProvider>
+              <Component {...pageProps} />
+            </RainbowKitProvider>
+          </RainbowKitSiweNextAuthProvider>
+        </QueryClientProvider>
+      </SessionProvider>
+    </WagmiProvider>
+  );
 }
 
 export default MyApp;
